@@ -3,7 +3,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import NotFound from "./components/NotFound"
 
 function App() {
-  return <></>
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  )
 }
 
 export default App
