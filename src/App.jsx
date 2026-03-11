@@ -5,6 +5,7 @@ import AppNavbar from "./components/AppNavbar"
 import Login from "./components/Login"
 import Register from "./components/Register"
 import AdminDashboard from "./components/AdminDashboard"
+import Home from "./components/Home"
 
 function App() {
   return (
@@ -12,8 +13,8 @@ function App() {
       <BrowserRouter>
         <AppNavbar />
         <Routes>
-          <Route path="/" element={<div>Pagina Home</div>} />
-          <Route path="/home" element={<div>Pagina Home</div>} />
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
