@@ -2,6 +2,8 @@ import "./App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import NotFound from "./components/NotFound"
 import AppNavbar from "./components/AppNavbar"
+import Login from "./components/Login"
+import Register from "./components/Register"
 
 function App() {
   return (
@@ -11,8 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<div>Pagina Home</div>} />
           <Route path="/home" element={<div>Pagina Home</div>} />
-          <Route path="/Login" element={<div>Pagina Login</div>} />
-          <Route path="/register" element={<div>Pagina Registrazione</div>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           {/* Rotta per le categorie (usando i parametri) */}
           <Route
@@ -22,6 +24,7 @@ function App() {
 
           {/* Rotta Admin */}
           <Route path="/admin/dashboard" element={<div>Dashboard Admin</div>} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
