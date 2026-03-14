@@ -35,7 +35,7 @@ const AdminDashboard = () => {
     setError(null)
     setSuccess(false)
 
-    const token = localStorage.setItem("token")
+    const token = localStorage.getItem("token")
 
     fetch("http://localhost:3001/product", {
       method: "POST",

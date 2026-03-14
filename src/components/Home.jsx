@@ -109,6 +109,8 @@ const Home = () => {
                   </Card.Text>
 
                   <Button
+                    as={Link}
+                    to={`/product/${product.id}`}
                     variant="outline-dark"
                     className="mt-3 w-100 fw-bold btn-sm"
                   >
