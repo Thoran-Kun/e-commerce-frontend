@@ -1,15 +1,34 @@
 import { Navbar, Nav, Container, NavDropdown, Button } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { ShoppingCart, User, LogOut } from "lucide-react"
+import { useEffect, useState } from "react"
 
 const AppNavbar = () => {
   const navigate = useNavigate()
-
+  const [cartCount, setCartCount] = useState(0)
   const token = localStorage.getItem("token")
   const userRole = localStorage.getItem("role") //se ADMIN o USER qualsiasi
 
+  //questa funzione legge il carello e mi aggiorna lo stato locale dell'app
+  const updateCartBadge = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || []
+    const total = cart.reduce((acc, item) => acc + item.quantity, 0)
+    setCartCount(total)
+  }
+  //recupero il numero degli elementi ogni volta che la navbar viene renderizzata
+  useEffect(() => {
+    updateCartBadge()
+    //calcolo dop che recupero gli elementi il loro totale
+    window.addEventListener("cart-updated", updateCartBadge)
+
+    return () => {
+      window.removeEventListener("cart-updated", updateCartBadge)
+    }
+  }, [])
+
   const handleLogout = () => {
     localStorage.clear() //cancella il token e il ruolo
+    setCartCount(0)
     navigate("/login")
   }
 
@@ -59,9 +78,11 @@ const AppNavbar = () => {
             {/* Carrello sempre visibile */}
             <Nav.Link as={Link} to="/cart" className="position-relative me-3">
               <ShoppingCart size={24} />
-              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                0
-              </span>
+              {cartCount > 0 && (
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {cartCount}
+                </span>
+              )}
             </Nav.Link>
 
             {/* Se NON sono loggato */}

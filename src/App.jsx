@@ -7,6 +7,7 @@ import Register from "./components/Register"
 import AdminDashboard from "./components/AdminDashboard"
 import Home from "./components/Home"
 import ProductDetail from "./components/ProductDetail"
+import Cart from "./components/Cart"
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           {/* Rotta Admin */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,28 +1,42 @@
 import { useEffect, useState } from "react"
-import { Button, Col, Container, Table } from "react-bootstrap"
+import { Button, Col, Container, Table, Row, Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 const Cart = () => {
-  const [cartItem, setCartItem] = useState([])
+  const [cartItems, setCartItems] = useState([])
 
   //recupero i dati dal localStorage
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || []
-    setCartItem(savedCart)
+    setCartItems(savedCart)
   }, [])
+
+  // sincronizzo la navbar
+  const syncNavbar = () => {
+    window.dispatchEvent(new Event("cart-updated"))
+  }
+
+  // Funzione per rimuovere un singolo prodotto
+  const removeItem = (id) => {
+    const updatedCart = cartItems.filter((item) => item.id !== id)
+    setCartItems(updatedCart)
+    localStorage.setItem("cart", JSON.stringify(updatedCart))
+    syncNavbar() // <--- Avvisa la Navbar
+  }
 
   //funzione per rimuovere un prodotto
   const clearCart = () => {
-    setCartItem([])
+    setCartItems([])
     localStorage.removeItem("cart")
+    syncNavbar()
   }
 
-  const total = cartItem.reduce(
+  const total = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
   )
 
-  if (cartItem.length === 0) {
+  if (cartItems.length === 0) {
     return (
       <Container className="py-5 text-center">
         <h2>Il carello è vuoto 🛒</h2>
@@ -56,7 +70,7 @@ const Cart = () => {
               </tr>
             </thead>
             <tbody>
-              {cartItem.map((item) => (
+              {cartItems.map((item) => (
                 <tr key={item.id}>
                   <td>
                     <div className="d-flex align-items-center">

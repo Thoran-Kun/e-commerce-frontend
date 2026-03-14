@@ -31,6 +31,8 @@ const ProductDetail = () => {
 
     // 3. Salva di nuovo nel localStorage
     localStorage.setItem("cart", JSON.stringify(currentCart))
+
+    window.dispatchEvent(new Event("cart-updated"))
     alert(`${product.name} aggiunto al carrello!`)
   }
 
