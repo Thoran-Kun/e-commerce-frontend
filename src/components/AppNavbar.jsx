@@ -52,14 +52,18 @@ const AppNavbar = () => {
               Home
             </Nav.Link>
             <NavDropdown title="Categorie" id="basic-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/category/manga">
+              <NavDropdown.Item as={Link} to="/?category=manga">
                 Manga
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/category/figures">
+              <NavDropdown.Item as={Link} to="/?category=figures">
                 Figures
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/category/comics">
+              <NavDropdown.Item as={Link} to="/?category=comics">
                 Comics
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item as={Link} to="/">
+                Tutti i prodotti
               </NavDropdown.Item>
             </NavDropdown>
 

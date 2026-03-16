@@ -9,12 +9,14 @@ import {
   Alert,
   Button,
 } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 
 const Home = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [searchParams] = useSearchParams()
+  const categoryFilter = searchParams.get("category")
 
   useEffect(() => {
     // faccio una chiamata GET al mio endpoint per recuperare tutti i prodotti
@@ -34,6 +36,13 @@ const Home = () => {
         setLoading(false)
       })
   }, [])
+
+  const filteredProducts = categoryFilter
+    ? products.filter(
+        (p) =>
+          p.category?.name.toLowerCase() === categoryFilter.toLocaleLowerCase(),
+      )
+    : products
 
   if (loading) {
     return (
@@ -57,21 +66,28 @@ const Home = () => {
   return (
     <Container className="py-5">
       <div className="text-center mb-5">
-        <h1 className="display-4 fw-bold">Geek Shop Catalog 🏯</h1>
+        <h1 className="display-4 fw-bold">
+          {categoryFilter
+            ? `${categoryFilter.toUpperCase()} 🏯`
+            : "Geek Shop Catalog 🏯"}
+        </h1>
         <p className="lead text-muted">
-          Manga, Figures e Comics scelti dai migliori Otaku
+          {categoryFilter
+            ? `Esplora la nostra selezione di ${categoryFilter.toLowerCase()}`
+            : "Manga, Figures e Comics scelti dai migliori Otaku"}
         </p>
         <hr className="w-25 mx-auto text-success" style={{ height: "3px" }} />
       </div>
 
       {products.length === 0 ? (
         <Alert variant="info" className="text-center shadow-sm border-0">
-          Il catalogo è attualmente vuoto. Accedi come Admin per aggiungere il
-          primo prodotto!
+          {categoryFilter
+            ? `Nessun prodotto trovato nella categoria ${categoryFilter}.`
+            : "Il catalogo è attualmente vuoto. Accedi come Admin per aggiungere il primo prodotto!"}
         </Alert>
       ) : (
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <Col key={product.id}>
               <Card className="h-100 border-0 shadow-sm overflow-hidden hover-card">
                 {/* Immagine del prodotto */}
