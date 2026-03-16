@@ -111,7 +111,7 @@ const AppNavbar = () => {
                 id="user-dropdown"
                 align="end"
               >
-                <NavDropdown.Item as={Link} to="/profile">
+                <NavDropdown.Item as={Link} to="/orders">
                   Miei Ordini
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
