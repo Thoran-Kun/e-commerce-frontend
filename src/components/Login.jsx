@@ -28,7 +28,7 @@ const Login = () => {
       .then((data) => {
         localStorage.setItem("token", data.accessToken)
         localStorage.setItem("role", data.role)
-
+        localStorage.setItem("userId", data.id)
         navigate("/")
         window.location.reload()
       })

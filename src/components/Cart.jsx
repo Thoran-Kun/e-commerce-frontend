@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Table, Row, Card } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([])
+  const navigate = useNavigate()
 
   //recupero i dati dal localStorage
   useEffect(() => {
@@ -29,6 +30,52 @@ const Cart = () => {
     setCartItems([])
     localStorage.removeItem("cart")
     syncNavbar()
+  }
+
+  // --- FUNZIONE DI CHECKOUT ---
+  const handleCheckout = async () => {
+    const token = localStorage.getItem("token")
+    const userId = localStorage.getItem("userId")
+
+    if (!token || !userId) {
+      alert("Devi effettuare il login per completare l'acquisto!")
+      navigate("/login")
+      return
+    }
+
+    const orderPayload = {
+      userId: Number(userId),
+      items: cartItems.map((item) => ({
+        productId: item.id,
+        quantity: item.quantity,
+      })),
+      shippingAddress: "Indirizzo di Spedizione Esempio, 123",
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(orderPayload),
+      })
+
+      if (response.ok) {
+        alert("⛩️ Ordine confermato con successo! Grazie per l'acquisto.")
+        clearCart() // Svuota lo stato e il localStorage
+        navigate("/home") // Torno alla Home per vedere lo stock aggiornato
+      } else {
+        const errorData = await response.json()
+        alert(
+          `Errore: ${errorData.message || "Impossibile completare l'ordine"}`,
+        )
+      }
+    } catch (error) {
+      console.error("Errore durante il checkout:", error)
+      alert("Errore di connessione con il server.")
+    }
   }
 
   const total = cartItems.reduce(
@@ -137,11 +184,7 @@ const Cart = () => {
               variant="success"
               size="lg"
               className="w-100 fw-bold shadow-sm"
-              onClick={() =>
-                alert(
-                  "Grazie per l'acquisto! Questa funzione sarà collegata a Stripe/PayPal.",
-                )
-              }
+              onClick={handleCheckout}
             >
               PROCEDI AL CHECKOUT
             </Button>
