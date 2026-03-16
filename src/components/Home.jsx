@@ -17,6 +17,8 @@ const Home = () => {
   const [error, setError] = useState(null)
   const [searchParams] = useSearchParams()
   const categoryFilter = searchParams.get("category")
+  const token = localStorage.getItem("token")
+  const userRole = localStorage.getItem("role")
 
   useEffect(() => {
     // faccio una chiamata GET al mio endpoint per recuperare tutti i prodotti
@@ -36,6 +38,25 @@ const Home = () => {
         setLoading(false)
       })
   }, [])
+
+  const handleDelete = (id) => {
+    if (
+      window.confirm("Vuoi davvero eliminare questo prodotto dal catalogo?")
+    ) {
+      fetch(`http://localhost:3001/product/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (res.ok || res.status === 204) {
+            setProducts(products.filter((p) => p.id !== id))
+          }
+        })
+        .catch((err) => console.error(err))
+    }
+  }
 
   const filteredProducts = categoryFilter
     ? products.filter(
@@ -98,6 +119,7 @@ const Home = () => {
                       product.imageUrl ||
                       "https://via.placeholder.com/300x400?text=No+Image"
                     }
+                    referrerPolicy="no-referrer"
                     style={{ height: "250px", objectFit: "contain" }}
                   />
                 </div>
@@ -132,6 +154,17 @@ const Home = () => {
                   >
                     Dettagli Opera
                   </Button>
+
+                  {token && userRole === "ADMIN" && (
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      className="mt-2 w-100 fw-bold"
+                      onClick={() => handleDelete(product.id)}
+                    >
+                      Elimina prodotto 🗑️
+                    </Button>
+                  )}
                 </Card.Body>
               </Card>
             </Col>
