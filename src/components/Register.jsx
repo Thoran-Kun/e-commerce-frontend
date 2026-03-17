@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom"
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    firtName: "",
+    firstName: "",
     lastName: "",
     email: "",
     password: "",
@@ -65,7 +65,7 @@ const Register = () => {
                 type="text"
                 required
                 onChange={(e) =>
-                  setFormData({ ...formData, firtName: e.target.value })
+                  setFormData({ ...formData, firstName: e.target.value })
                 }
               />
             </Form.Group>
