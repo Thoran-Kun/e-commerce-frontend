@@ -20,7 +20,7 @@ Benvenuti nell'interfaccia utente del **Salvatore MangaStore**, un e-commerce mo
 - **React Router Dom** (Gestione rotte e parametri dinamici)
 - **React-Bootstrap** (UI Kit professionale e responsive)
 - **Bootstrap Icons** (Set di icone per pagamenti e social)
-- **Stripe JS** (Integrazione gateway di pagamento)
+- **Stripe JS** (Integrazione gateway di pagamento) FORSE?
 
 ---
 
