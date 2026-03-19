@@ -9,31 +9,37 @@ import Home from "./components/Home"
 import ProductDetail from "./components/ProductDetail"
 import Cart from "./components/Cart"
 import Orders from "./components/Orders"
+import Footer from "./components/Footer"
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <AppNavbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+        <div className="d-flex flex-column min-vh-100">
+          <AppNavbar />
+          <main className="flex-grow-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-          {/* Rotta per le categorie (usando i parametri) */}
-          <Route
-            path="/category/:categoryName"
-            element={<div>Pagina Categoria</div>}
-          />
+              {/* Rotta per le categorie (usando i parametri) */}
+              <Route
+                path="/category/:categoryName"
+                element={<div>Pagina Categoria</div>}
+              />
 
-          {/* Rotta Admin */}
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
+              {/* Rotta Admin */}
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
       </BrowserRouter>
     </>
   )
