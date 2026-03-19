@@ -1,16 +1,53 @@
-# React + Vite
+# ⛩️ Salvatore MangaStore - Frontend Client 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Benvenuti nell'interfaccia utente del **Salvatore MangaStore**, un e-commerce moderno per collezionisti, sviluppato in **React JS** e **React-Bootstrap**.
 
-Currently, two official plugins are available:
+🔗 **Versione Live (Back-end su Koyeb):** [Se riesco a fare sto deploy devo ricordarmi di inserirlo qui ]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🔗 Link del Progetto
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+| Componente                  | Status | Link                                                                               |
+| :-------------------------- | :----- | :--------------------------------------------------------------------------------- |
+| **🚀 Frontend (Live Demo)** | Online | [Vai allo Store su Vercel](https://tuo-progetto.vercel.app)                        |
+| **⚙️ Backend (API Server)** | Online | [Server Koyeb](https://tuo-progetto.koyeb.app)                                     |
+| **📚 API Docs (Swagger)**   | Active | [Documentazione Interattiva](https://tuo-progetto.koyeb.app/swagger-ui/index.html) |
 
-## Expanding the ESLint configuration
+## 💻 Tecnologie Utilizzate
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React JS** (Functional Components & Hooks)
+- **React Router Dom** (Gestione rotte e parametri dinamici)
+- **React-Bootstrap** (UI Kit professionale e responsive)
+- **Bootstrap Icons** (Set di icone per pagamenti e social)
+- **Stripe JS** (Integrazione gateway di pagamento)
+
+---
+
+## 🎨 Highlights del Design
+
+- **Sticky Navbar**: Navigazione sempre accessibile durante lo scroll.
+- **Professional Footer**: Include Newsletter, info brand e icone di pagamento (Visa, Mastercard, PayPal, Klarna).
+- **Responsive Layout**: Ottimizzato per desktop, tablet e mobile grazie a **Flexbox** e al sistema a griglia di Bootstrap.
+- **Admin Dashboard**: Interfaccia riservata per la gestione del catalogo prodotti.
+
+---
+
+## 🛠️ Installazione Locale
+
+1. Clona il repo: `git clone [https://github.com/Thoran-Kun/e-commerce-frontend]`
+2. Installa le dipendenze: `npm install`
+3. Avvia il progetto: `npm start`
+
+---
+
+## 🛰️ Integrazione API
+
+Questo frontend comunica con un backend **Spring Boot** ospitato su Koyeb.
+Tutte le chiamate API utilizzano l'header `Authorization: Bearer <token>` per le rotte protette (Admin).
+
+---
+
+## 🤝 Salvatore Pepe
+
+[LinkedIn](https://github.com/Thoran-Kun) | [Portfolio](https://github.com/Thoran-Kun)
