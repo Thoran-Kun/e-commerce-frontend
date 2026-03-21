@@ -37,7 +37,7 @@ const ProductDetail = () => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3001/product/${id}`)
+    fetch(`https://e-commerce-backend-c9cn.onrender.com/product/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data)

@@ -17,7 +17,7 @@ const Register = () => {
     e.preventDefault()
     setError(null)
 
-    fetch("http://localhost:3001/auth/register", {
+    fetch("https://e-commerce-backend-c9cn.onrender.com/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

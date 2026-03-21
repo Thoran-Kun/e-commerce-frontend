@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault()
     setError(null)
 
-    fetch("http://localhost:3001/auth/login", {
+    fetch("https://e-commerce-backend-c9cn.onrender.com/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

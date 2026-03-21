@@ -53,14 +53,17 @@ const Cart = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        "https://e-commerce-backend-c9cn.onrender.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(orderPayload),
         },
-        body: JSON.stringify(orderPayload),
-      })
+      )
 
       if (response.ok) {
         alert("⛩️ Ordine confermato con successo! Grazie per l'acquisto.")

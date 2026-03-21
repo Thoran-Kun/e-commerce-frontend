@@ -6,7 +6,7 @@ const Orders = () => {
   const token = localStorage.getItem("token")
 
   useEffect(() => {
-    fetch("http://localhost:3001/orders/me", {
+    fetch("https://e-commerce-backend-c9cn.onrender.com/orders/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

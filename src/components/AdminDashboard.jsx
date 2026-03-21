@@ -37,7 +37,7 @@ const AdminDashboard = () => {
 
     const token = localStorage.getItem("token")
 
-    fetch("http://localhost:3001/product", {
+    fetch("https://e-commerce-backend-c9cn.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
