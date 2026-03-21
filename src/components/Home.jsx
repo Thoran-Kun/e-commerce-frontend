@@ -22,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     // faccio una chiamata GET al mio endpoint per recuperare tutti i prodotti
-    fetch("https://e-commerce-backend-c9cn.onrender.com")
+    fetch("https://e-commerce-backend-c9cn.onrender.com/product")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Errore nel caricamento del catalogo")
