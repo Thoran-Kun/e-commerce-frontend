@@ -54,7 +54,7 @@ const Cart = () => {
 
     try {
       const response = await fetch(
-        "https://e-commerce-backend-c9cn.onrender.com",
+        "https://e-commerce-backend-c9cn.onrender.com/orders",
         {
           method: "POST",
           headers: {
