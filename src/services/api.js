@@ -1,6 +1,6 @@
 //uso questa cartella per pulire tutte le rotte e le chiamate fetch, salvando l'url in un unica variabile
 
-const BASE_URL = "https://e-commerce-backend-c9cn.onrender.com/product"
+const BASE_URL = "https://e-commerce-backend-c9cn.onrender.com"
 
 export const API_ENDPOINT = {
   //prodotti
