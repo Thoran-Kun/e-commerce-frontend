@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Container, Form, Button, Card, Alert, Row, Col } from "react-bootstrap"
+import { API_ENDPOINT } from "../services/api"
 
 const AdminDashboard = () => {
   const [product, setProduct] = useState({
@@ -37,7 +38,7 @@ const AdminDashboard = () => {
 
     const token = localStorage.getItem("token")
 
-    fetch("https://e-commerce-backend-c9cn.onrender.com/product", {
+    fetch(API_ENDPOINT.PRODUCTS, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

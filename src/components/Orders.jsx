@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import { Container, Table, Badge, Card } from "react-bootstrap"
+import { API_ENDPOINT } from "../services/api"
 
 const Orders = () => {
   const [orders, setOrders] = useState([])
   const token = localStorage.getItem("token")
 
   useEffect(() => {
-    fetch("https://e-commerce-backend-c9cn.onrender.com/orders/me", {
+    fetch(API_ENDPOINT.MY_ORDERS, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

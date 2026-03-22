@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Button, Col, Container, Table, Row, Card } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
+import { API_ENDPOINT } from "../services/api"
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([])
@@ -53,17 +54,14 @@ const Cart = () => {
     }
 
     try {
-      const response = await fetch(
-        "https://e-commerce-backend-c9cn.onrender.com/orders",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(orderPayload),
+      const response = await fetch(API_ENDPOINT.ORDERS, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      )
+        body: JSON.stringify(orderPayload),
+      })
 
       if (response.ok) {
         alert("⛩️ Ordine confermato con successo! Grazie per l'acquisto.")

@@ -10,6 +10,7 @@ import {
   Button,
 } from "react-bootstrap"
 import { Link, useSearchParams } from "react-router-dom"
+import { API_ENDPOINT } from "../services/api"
 
 const Home = () => {
   const [products, setProducts] = useState([])
@@ -22,7 +23,7 @@ const Home = () => {
 
   useEffect(() => {
     // faccio una chiamata GET al mio endpoint per recuperare tutti i prodotti
-    fetch("https://e-commerce-backend-c9cn.onrender.com/product")
+    fetch(API_ENDPOINT.PRODUCTS)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Errore nel caricamento del catalogo")

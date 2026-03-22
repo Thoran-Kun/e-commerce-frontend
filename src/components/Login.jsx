@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Alert, Card, Container, Form, Button } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
+import { API_ENDPOINT } from "../services/api"
 
 const Login = () => {
   const [email, setEmail] = useState("")
@@ -12,7 +13,7 @@ const Login = () => {
     e.preventDefault()
     setError(null)
 
-    fetch("https://e-commerce-backend-c9cn.onrender.com/auth/login", {
+    fetch(API_ENDPOINT.LOGIN, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
