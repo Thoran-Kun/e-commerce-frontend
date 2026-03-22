@@ -7,13 +7,17 @@ const Orders = () => {
   const token = localStorage.getItem("token")
 
   useEffect(() => {
+    if (!token) return // Non faccio nulla se non esiste il token 
+
     fetch(API_ENDPOINT.MY_ORDERS, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => res.json())
-      .then((data) => setOrders(data))
+      .then((res) => {
+      if (!res.ok) throw new Error("Errore server");
+      return res.json()
+      .then((data) => setOrders(Array.isArray(data) ? data : [])) 
       .catch((err) => console.error("Errore caricamento ordini:", err))
   }, [token])
 
@@ -39,7 +43,7 @@ const Orders = () => {
                 <td>#{order.id}</td>
                 <td>{new Date(order.orderDate).toLocaleDateString()}</td>
                 <td>
-                  {order.orderItem.map((item) => (
+                  {order.orderItem?.map((item) => (
                     <div key={item.id} className="small">
                       {item.product.name} (x{item.quantity})
                     </div>
