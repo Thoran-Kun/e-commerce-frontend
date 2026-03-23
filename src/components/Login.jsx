@@ -20,9 +20,22 @@ const Login = () => {
       },
       body: JSON.stringify({ email, password }),
     })
-      .then((response) => {
+      .then(async (response) => {
+        // Se la risposta non è OK (200-299)
         if (!response.ok) {
-          throw new Error("Credenziali non valide o errore del server")
+          try {
+            // Proviamo a leggere il JSON d'errore dal backend
+            const errorData = await response.json()
+            // Lanciamo l'errore col messaggio del server (es. "Email o password non corretti")
+            throw new Error(errorData.message || "Errore durante il login")
+          } catch {
+            // Se il backend non ha mandato un JSON, usiamo i codici HTTP
+            if (response.status === 401)
+              throw new Error("Credenziali non valide")
+            if (response.status === 500)
+              throw new Error("Errore del server. Riprova più tardi")
+            throw new Error("Si è verificato un errore imprevisto")
+          }
         }
         return response.json()
       })
