@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Alert, Card, Container, Form, Button } from "react-bootstrap"
 import { useNavigate, Link } from "react-router-dom"
+import { API_ENDPOINT } from "../services/api"
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -17,24 +18,36 @@ const Register = () => {
     e.preventDefault()
     setError(null)
 
-    fetch("https://e-commerce-backend-c9cn.onrender.com/auth/register", {
+    fetch(API_ENDPOINT.REGISTER, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     })
-      .then((response) => {
+      .then(async (response) => {
+        // 3. Gestione dinamica dell'errore
         if (!response.ok) {
-          throw new Error(
-            "Errore durante la registrazione. L'email potrebbe essere già in uso.",
-          )
+          try {
+            const errorData = await response.json()
+            // Se il backend manda un messaggio (es. "Email già registrata"), lo usiamo
+            throw new Error(
+              errorData.message || "Errore durante la registrazione",
+            )
+          } catch {
+            // Fallback in caso di errore non JSON o generico
+            if (response.status === 409)
+              throw new Error("Questa email è già associata a un account")
+            if (response.status === 400)
+              throw new Error("Dati non validi. Controlla i campi inseriti")
+            throw new Error("Errore del server. Riprova più tardi")
+          }
         }
         return response.json()
       })
       .then(() => {
         setSuccess(true)
-
+        setError(null)
         setTimeout(() => navigate("/login"), 2000)
       })
       .catch((err) => {
