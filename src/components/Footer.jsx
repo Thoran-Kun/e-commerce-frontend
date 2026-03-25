@@ -42,7 +42,7 @@ const Footer = () => {
                 to="/?category=figures"
                 className="text-decoration-none text-secondary small"
               >
-                Figures
+                Figures/Funko-Pop
               </Link>
               <Link
                 as={Link}

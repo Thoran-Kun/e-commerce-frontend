@@ -56,7 +56,7 @@ const AppNavbar = () => {
                 Manga
               </NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/?category=figures">
-                Figures
+                Figures/FunkoPop
               </NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/?category=comics">
                 Comics

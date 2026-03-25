@@ -1,18 +1,14 @@
 # ⛩️ Salvatore MangaStore - Frontend Client 🚀
 
-Benvenuti nell'interfaccia utente del **Salvatore MangaStore**, un e-commerce moderno per collezionisti, sviluppato in **React JS** e **React-Bootstrap**.
+Benvenuti nell'interfaccia utente del **Geek Shop Catalog MangaStore**, un e-commerce moderno per collezionisti, sviluppato in **React JS** e **React-Bootstrap**.
 
-🔗 **Versione Live (Back-end su Koyeb):** [Se riesco a fare sto deploy devo ricordarmi di inserirlo qui ]
+🔗 **Versione Live (Back-end su Render):** [Se riesco a fare sto deploy devo ricordarmi di inserirlo qui ]
 
 ---
 
 ## 🔗 Link del Progetto
 
-| Componente                  | Status | Link                                                                               |
-| :-------------------------- | :----- | :--------------------------------------------------------------------------------- |
-| **🚀 Frontend (Live Demo)** | Online | [Vai allo Store su Vercel](https://tuo-progetto.vercel.app)                        |
-| **⚙️ Backend (API Server)** | Online | [Server Koyeb](https://tuo-progetto.koyeb.app)                                     |
-| **📚 API Docs (Swagger)**   | Active | [Documentazione Interattiva](https://tuo-progetto.koyeb.app/swagger-ui/index.html) |
+| **🚀 Frontend (Live Demo)** | Online | [Link Vercel](https://e-commerce-frontend-omega-teal.vercel.app/)
 
 ## 💻 Tecnologie Utilizzate
 
@@ -20,7 +16,6 @@ Benvenuti nell'interfaccia utente del **Salvatore MangaStore**, un e-commerce mo
 - **React Router Dom** (Gestione rotte e parametri dinamici)
 - **React-Bootstrap** (UI Kit professionale e responsive)
 - **Bootstrap Icons** (Set di icone per pagamenti e social)
-- **Stripe JS** (Integrazione gateway di pagamento) FORSE?
 
 ---
 
@@ -37,13 +32,13 @@ Benvenuti nell'interfaccia utente del **Salvatore MangaStore**, un e-commerce mo
 
 1. Clona il repo: `git clone [https://github.com/Thoran-Kun/e-commerce-frontend]`
 2. Installa le dipendenze: `npm install`
-3. Avvia il progetto: `npm start`
+3. Avvia il progetto: `npm run dev`
 
 ---
 
 ## 🛰️ Integrazione API
 
-Questo frontend comunica con un backend **Spring Boot** ospitato su Koyeb.
+Questo frontend comunica con un backend **Spring Boot** ospitato su Render.
 Tutte le chiamate API utilizzano l'header `Authorization: Bearer <token>` per le rotte protette (Admin).
 
 ---
