@@ -9,21 +9,24 @@ const AdminOrders = () => {
   const token = localStorage.getItem("token")
 
   useEffect(() => {
-    // Chiamata all'endpoint degli utenti
     fetch(`${API_ENDPOINT.USERS}?size=50`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => {
-        if (!res.ok) throw new Error("Errore nel recupero dati Admin")
+        if (!res.ok) throw new Error(`Errore server: ${res.status}`)
         return res.json()
       })
       .then((data) => {
-        // Spring Boot Page restituisce i dati in .content, buono a sapersi
-        setUsers(data.content || [])
+        const usersList = data.content ? data.content : data
+        setUsers(Array.isArray(usersList) ? usersList : [])
         setLoading(false)
       })
       .catch((err) => {
-        setError(err.message)
+        console.error("Errore report admin:", err)
+        setError("Impossibile caricare i dati. Controlla i permessi Admin.")
         setLoading(false)
       })
   }, [token])
