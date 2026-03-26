@@ -27,7 +27,10 @@ const AppNavbar = () => {
   }, [])
 
   const handleLogout = () => {
-    localStorage.clear() //cancella il token e il ruolo
+    //questo non mi elimina tutti i prodotti presenti nel carrello, ma solo token e role
+    //che sia ADMIN o USER, ma al prossimo login ritrovo tutto all'interno
+    localStorage.removeItem("token")
+    localStorage.removeItem("role")
     setCartCount(0)
     navigate("/login")
   }
