@@ -64,7 +64,7 @@ const Home2 = () => {
     localStorage.setItem("cart", JSON.stringify(currentCart))
 
     // Trigger per aggiornare la Navbar se ascolta l'evento 'storage'
-    window.dispatchEvent(new Event("storage"))
+    window.dispatchEvent(new Event("cart-updated"))
 
     // Mostriamo il Toast
     setAddedProductName(product.name)

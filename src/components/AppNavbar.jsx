@@ -11,7 +11,7 @@ const AppNavbar = () => {
 
   //questa funzione legge il carello e mi aggiorna lo stato locale dell'app
   const updateCartBadge = () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || []
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]")
     const total = cart.reduce((acc, item) => acc + item.quantity, 0)
     setCartCount(total)
   }
