@@ -38,6 +38,7 @@ const AdminDashboard = () => {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
+        console.log("RISPOSTA SERVER (STATUS):", res.status)
         if (!res.ok) throw new Error("Errore nel caricamento degli ordini")
         return res.json()
       })
