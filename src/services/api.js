@@ -13,6 +13,9 @@ export const API_ENDPOINT = {
   LOGIN: `${BASE_URL}/auth/login`,
   REGISTER: `${BASE_URL}/auth/register`,
 
+  // utenti (Gestione Admin)
+  USERS: `${BASE_URL}/user`,
+
   //ordini
   ORDERS: `${BASE_URL}/orders`,
   MY_ORDERS: `${BASE_URL}/orders/me`,
