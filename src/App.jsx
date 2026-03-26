@@ -10,6 +10,7 @@ import ProductDetail from "./components/ProductDetail"
 import Cart from "./components/Cart"
 import Orders from "./components/Orders"
 import Footer from "./components/Footer"
+import Home2 from "./components/Home2"
 
 function App() {
   return (
@@ -19,8 +20,8 @@ function App() {
           <AppNavbar />
           <main className="flex-grow-1">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
+              <Route path="/" element={<Home2 />} />
+              <Route path="/home" element={<Home2 />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
 
