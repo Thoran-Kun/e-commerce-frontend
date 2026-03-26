@@ -110,14 +110,7 @@ const AppNavbar = () => {
                 className="fw-bold text-warning"
               >
                 <NavDropdown.Item as={Link} to="/admin/dashboard">
-                  Gestione Prodotti
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/admin/orders-report">
-                  Report Vendite 📊
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="/admin/users">
-                  Lista Utenti 👥
+                  Gestione Prodotti & Vendite 🛠️
                 </NavDropdown.Item>
               </NavDropdown>
             )}
