@@ -20,5 +20,5 @@ export const API_ENDPOINT = {
   ORDERS: `${BASE_URL}/orders`,
   MY_ORDERS: `${BASE_URL}/orders/me`,
 
-  ALL_ORDERS: `${BASE_URL}/orders/all`,
+  ALL_ORDERS: `${BASE_URL}/orders/admin/all`,
 }
