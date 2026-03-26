@@ -64,7 +64,9 @@ const Cart = () => {
       })
 
       if (response.ok) {
-        alert("⛩️ Ordine confermato con successo! Grazie per l'acquisto.")
+        alert(
+          "⛩️ Ordine confermato con successo! Grazie per l'acquisto. Verrai reindirizzato alla pagina del pagamento!",
+        )
         clearCart() // Svuota lo stato e il localStorage
         navigate("/home") // Torno alla Home per vedere lo stock aggiornato
       } else {
