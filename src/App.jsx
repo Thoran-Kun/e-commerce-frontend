@@ -10,7 +10,6 @@ import ProductDetail from "./components/ProductDetail"
 import Cart from "./components/Cart"
 import Orders from "./components/Orders"
 import Footer from "./components/Footer"
-import Home2 from "./components/Home2"
 
 function App() {
   return (
