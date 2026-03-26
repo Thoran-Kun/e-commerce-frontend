@@ -7,7 +7,7 @@ const Orders = () => {
   const token = localStorage.getItem("token")
 
   useEffect(() => {
-    if (!token) return // Non faccio nulla se non esiste il token 
+    if (!token) return // Non faccio nulla se non esiste il token
 
     fetch(API_ENDPOINT.MY_ORDERS, {
       headers: {
@@ -15,9 +15,12 @@ const Orders = () => {
       },
     })
       .then((res) => {
-      if (!res.ok) throw new Error("Errore server");
-      return res.json()
-      .then((data) => setOrders(Array.isArray(data) ? data : [])) 
+        if (!res.ok) throw new Error("Errore server")
+        return res.json()
+      })
+      .then((data) => {
+        setOrders(Array.isArray(data) ? data : [])
+      })
       .catch((err) => console.error("Errore caricamento ordini:", err))
   }, [token])
 
