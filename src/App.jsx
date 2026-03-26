@@ -1,5 +1,4 @@
 import "./App.css"
-// AGGIUNTO: Navigate agli import di react-router-dom
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import NotFound from "./components/NotFound"
 import AppNavbar from "./components/AppNavbar"
