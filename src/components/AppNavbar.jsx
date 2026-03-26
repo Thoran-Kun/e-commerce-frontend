@@ -94,14 +94,32 @@ const AppNavbar = () => {
               </NavDropdown.Item>
             </NavDropdown>
 
-            {token && userRole === "ADMIN" && (
+            {/* {token && userRole === "ADMIN" && (
               <Nav.Link
                 as={Link}
                 to="/admin/dashboard"
                 className="text-warning fw-bold"
               >
                 Dashboard Admin
-              </Nav.Link>
+              </Nav.Link> */}
+
+            {token && userRole === "ADMIN" && (
+              <NavDropdown
+                title="Gestione Admin 🛠️"
+                id="admin-nav-dropdown"
+                className="fw-bold text-warning"
+              >
+                <NavDropdown.Item as={Link} to="/admin/dashboard">
+                  Gestione Prodotti
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/admin/orders-report">
+                  Report Vendite 📊
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to="/admin/users">
+                  Lista Utenti 👥
+                </NavDropdown.Item>
+              </NavDropdown>
             )}
           </Nav>
 

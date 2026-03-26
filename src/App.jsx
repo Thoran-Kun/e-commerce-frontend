@@ -12,6 +12,8 @@ import Orders from "./components/Orders"
 import Footer from "./components/Footer"
 
 function App() {
+  const token = localStorage.getItem("token")
+  const userRole = localStorage.getItem("role")
   return (
     <>
       <BrowserRouter>
@@ -23,6 +25,12 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route
+                path="/admin/orders-report"
+                element={
+                  userRole === "ADMIN" ? <AdminOrders /> : <Navigate to="/" />
+                }
+              />
 
               {/* Rotta per le categorie (usando i parametri) */}
               <Route
