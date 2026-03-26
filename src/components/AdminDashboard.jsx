@@ -1,15 +1,5 @@
-import { useState, useEffect } from "react"
-import {
-  Container,
-  Form,
-  Button,
-  Card,
-  Alert,
-  Row,
-  Col,
-  Table,
-  Badge,
-} from "react-bootstrap"
+import { useState } from "react"
+import { Container, Form, Button, Card, Alert, Row, Col } from "react-bootstrap"
 import { API_ENDPOINT } from "../services/api"
 
 const AdminDashboard = () => {
@@ -26,25 +16,8 @@ const AdminDashboard = () => {
     scale: "",
   })
 
-  // Stati per la gestione degli ordini
-  const [orders, setOrders] = useState([])
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(false)
-  const token = localStorage.getItem("token")
-
-  // --- Recupero degli ordini globali ---
-  useEffect(() => {
-    fetch(API_ENDPOINT.ALL_ORDERS, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => {
-        console.log("RISPOSTA SERVER (STATUS):", res.status)
-        if (!res.ok) throw new Error("Errore nel caricamento degli ordini")
-        return res.json()
-      })
-      .then((data) => setOrders(data))
-      .catch((err) => console.error("Errore fetch ordini:", err))
-  }, [token])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -62,6 +35,8 @@ const AdminDashboard = () => {
     e.preventDefault()
     setError(null)
     setSuccess(false)
+
+    const token = localStorage.getItem("token")
 
     fetch(API_ENDPOINT.PRODUCTS, {
       method: "POST",
@@ -101,17 +76,30 @@ const AdminDashboard = () => {
 
   return (
     <Container className="py-5">
-      <h2 className="mb-4 fw-bold text-uppercase">Pannello Admin 🛠️</h2>
-
-      {/* SEZIONE 1: AGGIUNTA PRODOTTO */}
-      <Card className="shadow-lg border-0 p-4 mb-5">
-        <h4 className="mb-4 text-primary fw-bold">
+      <h2 className="mb-4 fw-bold text-uppercase text-center">
+        Pannello Admin 🛠️
+      </h2>
+      <Card
+        className="shadow-lg border-0 p-4 mx-auto"
+        style={{ maxWidth: "850px" }}
+      >
+        <h4 className="mb-4 text-primary">
           Aggiungi un nuovo articolo al magazzino
         </h4>
 
-        {error && <Alert variant="danger">{error}</Alert>}
+        {error && (
+          <Alert variant="danger" dismissible onClose={() => setError(null)}>
+            {error}
+          </Alert>
+        )}
         {success && (
-          <Alert variant="success">Prodotto salvato con successo!</Alert>
+          <Alert
+            variant="success"
+            dismissible
+            onClose={() => setSuccess(false)}
+          >
+            Prodotto salvato con successo!
+          </Alert>
         )}
 
         <Form onSubmit={handleSubmit}>
@@ -257,49 +245,11 @@ const AdminDashboard = () => {
               type="submit"
               className="px-5 py-2 fw-bold shadow-sm"
             >
-              SALVA PRODOTTO
+              SALVA PRODOTTO 🚀
             </Button>
           </div>
         </Form>
       </Card>
-
-      {/* <hr className="my-5" /> */}
-
-      {/* SEZIONE 2: STORICO VENDITE */}
-      {/* <Card className="shadow-lg border-0 p-4">
-        <h4 className="mb-4 text-danger fw-bold">Registro Vendite Totali 🛒</h4>
-        <Table responsive striped hover>
-          <thead className="table-dark">
-            <tr>
-              <th>ID Ordine</th>
-              <th>Cliente (Email)</th>
-              <th>Data</th>
-              <th className="text-center">Totale Acquisto</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order.id} className="align-middle">
-                <td>
-                  <Badge bg="secondary">#{order.id}</Badge>
-                </td>
-                <td>{order.user?.email || "Utente non trovato"}</td>
-                <td>{new Date(order.orderDate).toLocaleDateString()}</td>
-                <td className="text-center fw-bold text-success">
-                  {order.totalCart?.toFixed(2)} €
-                </td>
-              </tr>
-            ))}
-            {orders.length === 0 && (
-              <tr>
-                <td colSpan="4" className="text-center py-3">
-                  Nessun ordine presente nel database.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </Table>
-      </Card> */}
     </Container>
   )
 }
