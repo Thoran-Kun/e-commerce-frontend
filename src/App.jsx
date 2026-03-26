@@ -10,6 +10,7 @@ import ProductDetail from "./components/ProductDetail"
 import Cart from "./components/Cart"
 import Orders from "./components/Orders"
 import Footer from "./components/Footer"
+import AdminOrders from "./components/AdminOrders"
 
 function App() {
   const token = localStorage.getItem("token")
