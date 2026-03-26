@@ -5,24 +5,48 @@ import { useEffect, useState } from "react"
 
 const AppNavbar = () => {
   const navigate = useNavigate()
-  const [cartCount, setCartCount] = useState(0)
-  const token = localStorage.getItem("token")
-  const userRole = localStorage.getItem("role") //se ADMIN o USER qualsiasi
+  // const [cartCount, setCartCount] = useState(0)
+  // const token = localStorage.getItem("token")
+  // const userRole = localStorage.getItem("role") //se ADMIN o USER qualsiasi
 
-  //questa funzione legge il carello e mi aggiorna lo stato locale dell'app
+  // //questa funzione legge il carello e mi aggiorna lo stato locale dell'app
+  // const updateCartBadge = () => {
+  //   const cart = JSON.parse(localStorage.getItem("cart") || "[]")
+  //   const total = cart.reduce((acc, item) => acc + item.quantity, 0)
+  //   setCartCount(total)
+  // }
+  // //recupero il numero degli elementi ogni volta che la navbar viene renderizzata
+  // useEffect(() => {
+  //   updateCartBadge()
+  //   //calcolo dop che recupero gli elementi il loro totale
+  //   window.addEventListener("cart-updated", updateCartBadge)
+
+  //   return () => {
+  //     window.removeEventListener("cart-updated", updateCartBadge)
+  //   }
+  // }, [])
+
+  const [cartCount, setCartCount] = useState(() => {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]")
+    return cart.reduce((acc, item) => acc + item.quantity, 0)
+  })
+
+  const token = localStorage.getItem("token")
+  const userRole = localStorage.getItem("role")
+
   const updateCartBadge = () => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]")
     const total = cart.reduce((acc, item) => acc + item.quantity, 0)
     setCartCount(total)
   }
-  //recupero il numero degli elementi ogni volta che la navbar viene renderizzata
+
   useEffect(() => {
-    updateCartBadge()
-    //calcolo dop che recupero gli elementi il loro totale
     window.addEventListener("cart-updated", updateCartBadge)
+    window.addEventListener("storage", updateCartBadge)
 
     return () => {
       window.removeEventListener("cart-updated", updateCartBadge)
+      window.removeEventListener("storage", updateCartBadge)
     }
   }, [])
 
