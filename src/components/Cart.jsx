@@ -149,7 +149,7 @@ const Cart = () => {
                   <td>{(item.price * item.quantity).toFixed(2)} €</td>
                   <td>
                     <Button
-                      variatn="outline-danger"
+                      variant="outline-danger"
                       size="sm"
                       onClick={() => removeItem(item.id)}
                     >
