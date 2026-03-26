@@ -2,8 +2,6 @@
 
 Benvenuti nell'interfaccia utente del **Geek Shop Catalog MangaStore**, un e-commerce moderno per collezionisti, sviluppato in **React JS** e **React-Bootstrap**.
 
-🔗 **Versione Live (Back-end su Render):** [Se riesco a fare sto deploy devo ricordarmi di inserirlo qui ]
-
 ---
 
 ## 🔗 Link del Progetto
