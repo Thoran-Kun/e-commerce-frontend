@@ -19,4 +19,6 @@ export const API_ENDPOINT = {
   //ordini
   ORDERS: `${BASE_URL}/orders`,
   MY_ORDERS: `${BASE_URL}/orders/me`,
+
+  ALL_ORDERS: `${BASE_URL}/orders/all`,
 }
