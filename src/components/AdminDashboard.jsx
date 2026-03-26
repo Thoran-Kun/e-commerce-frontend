@@ -263,10 +263,10 @@ const AdminDashboard = () => {
         </Form>
       </Card>
 
-      <hr className="my-5" />
+      {/* <hr className="my-5" /> */}
 
       {/* SEZIONE 2: STORICO VENDITE */}
-      <Card className="shadow-lg border-0 p-4">
+      {/* <Card className="shadow-lg border-0 p-4">
         <h4 className="mb-4 text-danger fw-bold">Registro Vendite Totali 🛒</h4>
         <Table responsive striped hover>
           <thead className="table-dark">
@@ -299,7 +299,7 @@ const AdminDashboard = () => {
             )}
           </tbody>
         </Table>
-      </Card>
+      </Card> */}
     </Container>
   )
 }
