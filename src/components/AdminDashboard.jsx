@@ -3,7 +3,6 @@ import { Container, Form, Button, Card, Alert, Row, Col, Tab, Tabs, Table, Badge
 import { API_ENDPOINT } from "../services/api"
 
 const AdminDashboard = () => {
-  // --- STATO PRODOTTO (invariato) ---
   const [product, setProduct] = useState({
     name: "", description: "", price: "", stockQuantity: "",
     categoryId: "", author: "", publisher: "", imageUrl: "", brand: "", scale: "",
@@ -11,16 +10,14 @@ const AdminDashboard = () => {
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(false)
 
-  // --- STATO ORDINI ---
   const [orders, setOrders] = useState([])
   const [ordersLoading, setOrdersLoading] = useState(false)
   const [ordersError, setOrdersError] = useState(null)
+  const [expandedOrder, setExpandedOrder] = useState(null) // ID ordine espanso
 
-  // Carica gli ordini quando si monta il componente
   useEffect(() => {
     const token = localStorage.getItem("token")
     setOrdersLoading(true)
-
     fetch(API_ENDPOINT.ALL_ORDERS, {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -28,23 +25,14 @@ const AdminDashboard = () => {
         if (!res.ok) throw new Error("Errore nel caricamento degli ordini")
         return res.json()
       })
-      .then((data) => {
-        setOrders(data)
-        setOrdersLoading(false)
-      })
-      .catch((err) => {
-        setOrdersError(err.message)
-        setOrdersLoading(false)
-      })
+      .then((data) => { setOrders(data); setOrdersLoading(false) })
+      .catch((err) => { setOrdersError(err.message); setOrdersLoading(false) })
   }, [])
 
-  // --- HANDLERS PRODOTTO (invariati) ---
   const handleChange = (e) => {
     const { name, value } = e.target
-    const val =
-      name === "price" || name === "stockQuantity" || name === "categoryId"
-        ? value === "" ? "" : Number(value)
-        : value
+    const val = name === "price" || name === "stockQuantity" || name === "categoryId"
+      ? value === "" ? "" : Number(value) : value
     setProduct({ ...product, [name]: val })
   }
 
@@ -53,13 +41,9 @@ const AdminDashboard = () => {
     setError(null)
     setSuccess(false)
     const token = localStorage.getItem("token")
-
     fetch(API_ENDPOINT.PRODUCTS, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify(product),
     })
       .then((response) => {
@@ -73,34 +57,26 @@ const AdminDashboard = () => {
       .catch((err) => setError(err.message))
   }
 
-  // Badge colore in base allo stato ordine
   const getStatusBadge = (status) => {
-    const map = {
-      PENDING: "warning",
-      CONFIRMED: "primary",
-      SHIPPED: "info",
-      DELIVERED: "success",
-      CANCELLED: "danger",
-    }
+    const map = { PENDING: "warning", CONFIRMED: "primary", SHIPPED: "info", DELIVERED: "success", CANCELLED: "danger" }
     return <Badge bg={map[status] || "secondary"}>{status}</Badge>
+  }
+
+  const toggleOrder = (orderId) => {
+    setExpandedOrder(expandedOrder === orderId ? null : orderId)
   }
 
   return (
     <Container className="py-5">
-      <h2 className="mb-4 fw-bold text-uppercase text-center">
-        Pannello Admin 🛠️
-      </h2>
+      <h2 className="mb-4 fw-bold text-uppercase text-center">Pannello Admin 🛠️</h2>
 
       <Tabs defaultActiveKey="products" className="mb-4">
 
-        {/* ── TAB 1: AGGIUNGI PRODOTTO (invariata) ── */}
         <Tab eventKey="products" title="📦 Aggiungi Prodotto">
           <Card className="shadow-lg border-0 p-4 mx-auto" style={{ maxWidth: "850px" }}>
             <h4 className="mb-4 text-primary">Aggiungi un nuovo articolo al magazzino</h4>
-
             {error && <Alert variant="danger" dismissible onClose={() => setError(null)}>{error}</Alert>}
             {success && <Alert variant="success" dismissible onClose={() => setSuccess(false)}>Prodotto salvato con successo!</Alert>}
-
             <Form onSubmit={handleSubmit}>
               <Row>
                 <Col md={6}>
@@ -165,15 +141,12 @@ const AdminDashboard = () => {
                 </Col>
               </Row>
               <div className="text-end mt-4">
-                <Button variant="success" type="submit" className="px-5 py-2 fw-bold shadow-sm">
-                  SALVA PRODOTTO 🚀
-                </Button>
+                <Button variant="success" type="submit" className="px-5 py-2 fw-bold shadow-sm">SALVA PRODOTTO 🚀</Button>
               </div>
             </Form>
           </Card>
         </Tab>
 
-        {/* ── TAB 2: STORICO ORDINI ── */}
         <Tab eventKey="orders" title="📋 Storico Ordini">
           <Card className="shadow-lg border-0 p-4">
             <h4 className="mb-4 text-primary">Tutti gli ordini degli utenti</h4>
@@ -188,7 +161,7 @@ const AdminDashboard = () => {
             {ordersError && <Alert variant="danger">{ordersError}</Alert>}
 
             {!ordersLoading && !ordersError && (
-              <Table responsive hover striped>
+              <Table responsive hover>
                 <thead className="table-dark">
                   <tr>
                     <th>#ID</th>
@@ -196,24 +169,57 @@ const AdminDashboard = () => {
                     <th>Data</th>
                     <th>Totale</th>
                     <th>Stato</th>
-                    <th>Prodotti</th>
+                    <th>Articoli</th>
+                    <th>Dettaglio</th>
                   </tr>
                 </thead>
                 <tbody>
                   {orders.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="text-center text-muted py-4">Nessun ordine trovato</td>
+                      <td colSpan={7} className="text-center text-muted py-4">Nessun ordine trovato</td>
                     </tr>
                   ) : (
                     orders.map((order) => (
-                      <tr key={order.id}>
-                        <td className="fw-bold">#{order.id}</td>
-                        <td>{order.user?.email || "—"}</td>
-                        <td>{new Date(order.orderDate).toLocaleDateString("it-IT")}</td>
-                        <td className="fw-bold">€ {order.totalPrice?.toFixed(2)}</td>
-                        <td>{getStatusBadge(order.status)}</td>
-                        <td>{order.items?.length || 0} articoli</td>
-                      </tr>
+                      <>
+                        {/* Riga principale ordine */}
+                        <tr key={order.id} style={{ cursor: "pointer" }} onClick={() => toggleOrder(order.id)}>
+                          <td className="fw-bold">#{order.id}</td>
+                          <td>{order.user?.email || "—"}</td>
+                          <td>{new Date(order.orderDate).toLocaleDateString("it-IT")}</td>
+                          <td className="fw-bold">€ {order.totalCart?.toFixed(2)}</td>
+                          <td>{getStatusBadge(order.status)}</td>
+                          <td>{order.orderItem?.length || 0} articoli</td>
+                          <td>{expandedOrder === order.id ? "▲ Chiudi" : "▼ Vedi"}</td>
+                        </tr>
+
+                        {/* Riga espandibile con i prodotti */}
+                        {expandedOrder === order.id && (
+                          <tr key={`detail-${order.id}`} className="table-light">
+                            <td colSpan={7}>
+                              <Table size="sm" className="mb-0 mt-2">
+                                <thead>
+                                  <tr className="table-secondary">
+                                    <th>Prodotto</th>
+                                    <th>Quantità</th>
+                                    <th>Prezzo al momento</th>
+                                    <th>Subtotale</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {order.orderItem?.map((item) => (
+                                    <tr key={item.id}>
+                                      <td>{item.product?.name || "—"}</td>
+                                      <td>{item.quantity}</td>
+                                      <td>€ {item.priceAtPurchase?.toFixed(2)}</td>
+                                      <td>€ {(item.quantity * item.priceAtPurchase).toFixed(2)}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </Table>
+                            </td>
+                          </tr>
+                        )}
+                      </>
                     ))
                   )}
                 </tbody>
